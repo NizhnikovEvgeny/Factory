@@ -5,6 +5,7 @@
  */
 package users;
 
+import Records.LibrarianRecord;
 import factoryexample.ExcelExporter;
 import static users.Teacher.TeacherSurnameList;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
  */
 public abstract class User {
     
+    public ArrayList<LibrarianRecord> records;
     public int ID;
     public String Name;
     public String Surname;

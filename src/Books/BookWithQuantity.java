@@ -22,10 +22,15 @@ public class BookWithQuantity {
         this.pricePerExtraDay = this.pricePerDay+100;
     }
     
-    private void increaseQuantity(){
+    public void increaseQuantity(){
         this.quantity++;
     }
-    private void decreaseQuantity(){
+    public void decreaseQuantity(){
         this.quantity--;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    
 }

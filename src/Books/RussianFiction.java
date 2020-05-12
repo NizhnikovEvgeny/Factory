@@ -19,8 +19,8 @@ public class RussianFiction implements Fiction{
     private static ArrayList<String> placeList;
     public RussianFiction() {
         this.setName(generateName());
-//        Frame.text+= "Русская литература " + this.name + "\n";
-//        System.out.println("Русская литература " + this.name);
+        Frame.text+= "Русская литература " + this.name + "\n";
+        System.out.println("Русская литература " + this.name);
     }
 
     public void setName(String name) {

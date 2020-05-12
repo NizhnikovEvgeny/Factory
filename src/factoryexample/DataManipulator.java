@@ -5,7 +5,6 @@
  */
 package factoryexample;
 
-import org.apache.poi.hslf.record.Record;
 import Books.BookFactory;
 import Books.BookWithQuantity;
 import Books.EnglishBookFactory;
@@ -14,6 +13,8 @@ import Books.RussianBookFactory;
 import Books.RussianFiction;
 import Books.RussianTextbook;
 import Books.EnglishFiction;
+import Records.Librarian;
+import Records.LibrarianRecord;
 import users.Teacher;
 import users.Student;
 import users.User;
@@ -29,7 +30,7 @@ public class DataManipulator {
     
     ArrayList<User> Users;
     ArrayList<BookWithQuantity> Books = new ArrayList<>();
-    ArrayList<Record> Records;
+    ArrayList<LibrarianRecord> RecordList;
     
     public DataManipulator() {
     }
@@ -69,7 +70,19 @@ public class DataManipulator {
         Books.addAll(JDM.createJournals());
         System.out.println("ГЕНЕРАЦИЯ ЗАВЕРШЕНА");
     }
-
+    
+    public void generateRecords(){
+        Librarian librarian = new Librarian();
+        DateManipulator dateM = new DateManipulator();
+        while(!dateM.dateIsOver()){
+            int peopleTakeToday = (int) Math.floor(Math.random()*Users.size()*0.10+1);
+            for (int i = 0; i < peopleTakeToday; i++) {
+                librarian.createRecord(dateM.getDate());
+                
+            }
+        }
+    }
+    
     private static class JournalDataManipulator {
 
         public JournalDataManipulator() {
