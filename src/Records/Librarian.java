@@ -8,6 +8,7 @@ package Records;
 import Books.BookWithQuantity;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import users.User;
 
 /**
@@ -16,7 +17,9 @@ import users.User;
  */
 public class Librarian {
 
-    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList, ArrayList<LibrarianRecord> RecordList) {
+    int numberOfRegisteredUsers = 0;
+
+    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
         int randomBook = (int) Math.floor(Math.random() * BookList.size());
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
         if (!UserList.get(randomUser).isRegistered) {
@@ -27,10 +30,27 @@ public class Librarian {
             record.setBook(takeBook(randomBook, BookList));
             record.setUser(setBook(randomUser, UserList));
             record.setTakeDate(date);
+            Date expireDate = new Date(date.getTime() + (1000 * 60 * 60 * 24));
+            record.setExpireDate(expireDate);
+            record.pricePerDay = BookList.get(randomBook).getPricePerDay();
+            record.pricePerExtraDay = BookList.get(randomBook).getPricePerExtraDay();
             giveBookToUser(randomUser, UserList, record);
-            RecordList.add(record);
         }
 
+    }
+
+    public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) throws Exception {
+        int randomUser = (int) Math.floor(Math.random() * UserList.size());
+        User user = UserList.get(randomUser);
+        if (user.isRegistered && !user.records.isEmpty()) {
+            int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
+            countDebt(date, numberOfBookReturn, user);
+
+            user.records.get(numberOfBookReturn).book.increaseQuantity();
+            user.records.remove(numberOfBookReturn);
+        } else {
+            throw new Exception();
+        }
     }
 
     private BookWithQuantity takeBook(int randomBook, ArrayList<BookWithQuantity> BookList) {
@@ -49,5 +69,31 @@ public class Librarian {
 
     private void registerUser(User user) {
         user.isRegistered = true;
+        user.records = new ArrayList<>();
+        numberOfRegisteredUsers++;
+    }
+
+    public int getNumberOfRegisteredUsers() {
+        return numberOfRegisteredUsers;
+    }
+
+    private void countDebt(Date date, int numberOfBookReturn, User user) {
+        long diffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).takeDate.getTime());
+        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+        if ((date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime()) < 0) { //Это если сдал вовремя
+            double debt = diff * user.records.get(numberOfBookReturn).pricePerDay;
+            user.addToDebt(debt);
+            System.out.println(debt);
+        } else {            //Если сдал позже срока
+            long normalDiffInMillies = Math.abs(user.records.get(numberOfBookReturn).expireDate.getTime() - user.records.get(numberOfBookReturn).takeDate.getTime());
+            long normalDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+            long extraDiffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime());
+            long extraDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            double debt = normalDiff * user.records.get(numberOfBookReturn).pricePerDay + extraDiff * user.records.get(numberOfBookReturn).pricePerExtraDay;
+            user.addToDebt(debt);
+            System.out.println(debt);
+        }
     }
 }

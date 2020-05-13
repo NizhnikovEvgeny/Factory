@@ -23,12 +23,14 @@ public abstract class User {
     public String Surname;
     public String Patronymic;
     public boolean isRegistered = false;
+    public double debt = 0;
     
     public static int GLOBAL_ID = 0;
     
     public static ArrayList<String> NameList;
     public static ArrayList<String> SurnameList;
     public static ArrayList<String> PatronymicList;
+    
 
     public void setID(int ID) {
         this.ID = ID;
@@ -96,6 +98,9 @@ public abstract class User {
         int newID = GLOBAL_ID;
         GLOBAL_ID++;
         return  newID;
+    }
+    public void addToDebt (double debt){
+        this.debt+=debt;
     }
 }
 

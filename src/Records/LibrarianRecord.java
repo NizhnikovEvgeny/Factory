@@ -18,6 +18,8 @@ public class LibrarianRecord {
     BookWithQuantity book;
     Date takeDate;
     Date expireDate;
+    double pricePerDay;
+    double pricePerExtraDay;
     
     public LibrarianRecord(){
         

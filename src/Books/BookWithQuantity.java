@@ -32,5 +32,13 @@ public class BookWithQuantity {
     public int getQuantity() {
         return quantity;
     }
+
+    public double getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public double getPricePerExtraDay() {
+        return pricePerExtraDay;
+    }
     
 }

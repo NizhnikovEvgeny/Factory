@@ -21,21 +21,24 @@ import users.User;
 import users.UserFactory;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Dmitry
  */
 public class DataManipulator {
-    
+
     ArrayList<User> Users;
     ArrayList<BookWithQuantity> Books = new ArrayList<>();
-    ArrayList<LibrarianRecord> RecordList;
-    
+    ArrayList<LibrarianRecord> Records;
+
     public DataManipulator() {
     }
-    
-    public void initialize() throws IOException{
+
+    public void initialize() throws IOException {
         //Users
         User.generateNameList();
         User.generateSurnameList();
@@ -55,96 +58,118 @@ public class DataManipulator {
         EnglishFiction.generateAuthorList();
         EnglishFiction.generateNameList();
     }
-    
-    public void generateData(){
-        
+
+    public void generateData() {
+
         UserFactory UF = new UserFactory();
         Users = UF.createUsers(50);
-        
+
         JournalDataManipulator JDM = new JournalDataManipulator();
-        
-        
+
         BookDataManipulator BDM = new BookDataManipulator();
-        
+
         Books.addAll(BDM.createTestBook());
         Books.addAll(JDM.createJournals());
         System.out.println("ГЕНЕРАЦИЯ ЗАВЕРШЕНА");
     }
-    
+
     public void generateRecords(){
         Librarian librarian = new Librarian();
-        DateManipulator dateM = new DateManipulator();
-        while(!dateM.dateIsOver()){
-            int peopleTakeToday = (int) Math.floor(Math.random()*Users.size()*0.10+1);
+        Date date = new Date(50, 10, 10);
+//        DateManipulator dateM = new DateManipulator();
+//        while (!dateM.dateIsOver()) {
+        for (int k = 0; k < 100; k++) {
+
+            int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
             for (int i = 0; i < peopleTakeToday; i++) {
-                librarian.createRecord(dateM.getDate());
-                
+//                librarian.createRecord(dateM.getDate(), Books, Users);
+                librarian.createRecord(date, Books, Users);
             }
+            int peopleReturnToday = (int) Math.floor(Math.random() * librarian.getNumberOfRegisteredUsers() * 0.1);
+            for (int i = 0; i < peopleReturnToday; i++) {
+                try {
+                    //                    librarian.returnBooks(dateM.getDate(), Books, Users);
+                    librarian.returnBook(date, Books, Users);
+                } catch (Exception ex) {
+                    i--;
+                }
+            }
+            date = new Date((date.getTime() + (1000 * 60 * 60 * 24)));
         }
     }
-    
+
     private static class JournalDataManipulator {
 
         public JournalDataManipulator() {
-            
-            
+
         }
-        
-         public ArrayList createJournals(){
+
+        public ArrayList createJournals() {
             ArrayList<BookWithQuantity> journals = new ArrayList<>();
-            
+
             JournalDirector JDirector = new JournalDirector();
             JDirector.setJB(new PhysicJournalBuilder());
             journals.addAll(createThematicalJournals(JDirector));
-            
+
             JDirector.setJB(new AstronomicalJournalBuilder());
             journals.addAll(createThematicalJournals(JDirector));
             return journals;
 
         }
-         
+
         private ArrayList<BookWithQuantity> createThematicalJournals(JournalDirector JDirector) {
-            ArrayList<BookWithQuantity> ThematicalJournals = new ArrayList<>(); 
-            
-            while(! JDirector.isJournalsIsOver() ){
+            ArrayList<BookWithQuantity> ThematicalJournals = new ArrayList<>();
+
+            while (!JDirector.isJournalsIsOver()) {
                 JDirector.createJournal();
                 ThematicalJournals.add(new BookWithQuantity(JDirector.getJournal()));
             }
 
             return ThematicalJournals;
 
-
         }
-        
-   
+
     }
 
     private static class BookDataManipulator {
 
         public BookDataManipulator() {
-            
-            
-            
+
         }
-        
-        public ArrayList createTestBook(){
+
+        public ArrayList createTestBook() {
             BookFactory factory;
             ArrayList<BookWithQuantity> BookList = new ArrayList<>();
             int i = 0;
-            while(i < 100){
-                int R = i - (int)Math.floor(i/4)*4;
+            while (i < 100) {
+                int R = i - (int) Math.floor(i / 4) * 4;
                 switch (R) {
-                    case 0: {factory = new RussianBookFactory(); BookList.add(new BookWithQuantity(factory.createFiction()));} break;
-                    case 1: {factory = new RussianBookFactory(); BookList.add(new BookWithQuantity(factory.createTextbook()));} break;
-                    case 2: {factory = new EnglishBookFactory(); BookList.add(new BookWithQuantity(factory.createFiction()));} break;
-                    case 3: {factory = new EnglishBookFactory(); BookList.add(new BookWithQuantity(factory.createTextbook()));} break;
-                }    
+                    case 0: {
+                        factory = new RussianBookFactory();
+                        BookList.add(new BookWithQuantity(factory.createFiction()));
+                    }
+                    break;
+                    case 1: {
+                        factory = new RussianBookFactory();
+                        BookList.add(new BookWithQuantity(factory.createTextbook()));
+                    }
+                    break;
+                    case 2: {
+                        factory = new EnglishBookFactory();
+                        BookList.add(new BookWithQuantity(factory.createFiction()));
+                    }
+                    break;
+                    case 3: {
+                        factory = new EnglishBookFactory();
+                        BookList.add(new BookWithQuantity(factory.createTextbook()));
+                    }
+                    break;
+                }
                 i++;
             }
             return BookList;
         }
-        
+
     }
-    
-    
+
 }

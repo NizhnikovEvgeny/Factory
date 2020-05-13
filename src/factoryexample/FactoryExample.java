@@ -18,12 +18,12 @@ public class FactoryExample {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        Frame frame = new Frame();
-        frame.setVisible(true);
+//        Frame frame = new Frame();
+//        frame.setVisible(true);
         DataManipulator DM = new DataManipulator();
         DM.initialize();
         DM.generateData();
-        int a = 1;
+        DM.generateRecords();
     }
     
 }
