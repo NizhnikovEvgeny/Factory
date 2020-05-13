@@ -22,6 +22,7 @@ public abstract class User {
     public String Name;
     public String Surname;
     public String Patronymic;
+    public boolean isRegistered = false;
     
     public static int GLOBAL_ID = 0;
     

@@ -16,29 +16,38 @@ import users.User;
  */
 public class Librarian {
 
-    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList, ArrayList<LibrarianRecord> RecordList){
-        int randomBook = (int) Math.floor(Math.random()*BookList.size());
-        int randomUser = (int) Math.floor(Math.random()*UserList.size());
-        if (BookList.get(randomBook).getQuantity()>0){
+    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList, ArrayList<LibrarianRecord> RecordList) {
+        int randomBook = (int) Math.floor(Math.random() * BookList.size());
+        int randomUser = (int) Math.floor(Math.random() * UserList.size());
+        if (!UserList.get(randomUser).isRegistered) {
+            registerUser(UserList.get(randomUser));
+        }
+        if (BookList.get(randomBook).getQuantity() > 0) {
             LibrarianRecord record = new LibrarianRecord();
-            record.setBook(takeBook(randomBook, BookList));         
-            record.setUser(setBook(randomUser, UserList));   
+            record.setBook(takeBook(randomBook, BookList));
+            record.setUser(setBook(randomUser, UserList));
             record.setTakeDate(date);
             giveBookToUser(randomUser, UserList, record);
             RecordList.add(record);
         }
+
     }
-    
-    private BookWithQuantity takeBook(int randomBook, ArrayList<BookWithQuantity> BookList){
+
+    private BookWithQuantity takeBook(int randomBook, ArrayList<BookWithQuantity> BookList) {
         BookList.get(randomBook).decreaseQuantity();
         return BookList.get(randomBook);
     }
-    
-    private User setBook(int randomUser, ArrayList<User> UserList){
-        
+
+    private User setBook(int randomUser, ArrayList<User> UserList) {
+
         return UserList.get(randomUser);
-    }  
-    private void giveBookToUser(int randomUser, ArrayList<User> UserList, LibrarianRecord record){
+    }
+
+    private void giveBookToUser(int randomUser, ArrayList<User> UserList, LibrarianRecord record) {
         UserList.get(randomUser).records.add(record);
+    }
+
+    private void registerUser(User user) {
+        user.isRegistered = true;
     }
 }
