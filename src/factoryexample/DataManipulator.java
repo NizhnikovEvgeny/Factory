@@ -92,7 +92,7 @@ public class DataManipulator {
                 dateM.nextDay();
                 System.out.println(dateM.getDate());
         }
-        Records.addAll(librarian.allRecords);
+        Records = librarian.allRecords;
     }
 
     
