@@ -6,6 +6,7 @@
 package factoryexample;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -20,8 +21,12 @@ public class DateManipulator {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
     }
     
-    public int getDate() {
-        return calendar.get(Calendar.DAY_OF_MONTH);
+    public void nextMonth() {
+        calendar.add(Calendar.MONTH, 1);
+    }
+    
+    public Date getDate() {
+        return calendar.getTime();
     }
     
     public boolean DateIsOver() {
