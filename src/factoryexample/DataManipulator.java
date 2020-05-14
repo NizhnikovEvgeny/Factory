@@ -76,8 +76,7 @@ public class DataManipulator {
     public void generateRecords() {
         Librarian librarian = new Librarian();
         DateManipulator dateM = new DateManipulator();
-        while (!dateM.DateIsOver()) {
-            for (int k = 0; k < 100; k++) {
+        while (!dateM.dateIsOver()) {
                 int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
                 for (int i = 0; i < peopleTakeToday; i++) {
                     librarian.createRecord(dateM.getDate(), Books, Users);
@@ -92,7 +91,6 @@ public class DataManipulator {
                 }
                 dateM.nextDay();
                 System.out.println(dateM.getDate());
-            }
         }
     }
 

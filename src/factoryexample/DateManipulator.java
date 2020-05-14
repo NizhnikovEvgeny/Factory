@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  * @author bys99
  */
 public class DateManipulator {
-    Calendar calendar = new GregorianCalendar(2020, Calendar.APRIL, 1);
+    Calendar calendar = new GregorianCalendar(2019, Calendar.APRIL, 1);
     Calendar today = new GregorianCalendar();
     
     public void nextDay() {
@@ -35,7 +35,7 @@ public class DateManipulator {
         return today.getTime();
     }
     
-    public boolean DateIsOver() {
+    public boolean dateIsOver() {
         return calendar.after(today);
     }
 }
