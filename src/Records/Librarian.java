@@ -6,6 +6,7 @@
 package Records;
 
 import Books.BookWithQuantity;
+import factoryexample.DateManipulator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +31,8 @@ public class Librarian {
             record.setBook(takeBook(randomBook, BookList));
             record.setUser(setUser(randomUser, UserList));
             record.setTakeDate(date);
-            Date expireDate = new Date(date.getTime() + (1000 * 60 * 60 * 24));
+            DateManipulator dateM = new DateManipulator();
+//            Date expireDate = new Date(date.getTime() + (1000 * 60 * 60 * 24));
             record.setExpireDate(expireDate);
             record.pricePerDay = BookList.get(randomBook).getPricePerDay();
             record.pricePerExtraDay = BookList.get(randomBook).getPricePerExtraDay();

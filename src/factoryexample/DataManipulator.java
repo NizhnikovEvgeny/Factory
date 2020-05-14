@@ -73,30 +73,34 @@ public class DataManipulator {
         System.out.println("ГЕНЕРАЦИЯ ЗАВЕРШЕНА");
     }
 
-    public void generateRecords(){
+    public void generateRecords() {
         Librarian librarian = new Librarian();
-        Date date = new Date(50, 10, 10);
-//        DateManipulator dateM = new DateManipulator();
-//        while (!dateM.dateIsOver()) {
-        for (int k = 0; k < 100; k++) {
+//        Date date = new Date(50, 10, 10);
+        DateManipulator dateM = new DateManipulator();
+        while (!dateM.DateIsOver()) {
+            for (int k = 0; k < 100; k++) {
 
-            int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
-            for (int i = 0; i < peopleTakeToday; i++) {
-//                librarian.createRecord(dateM.getDate(), Books, Users);
-                librarian.createRecord(date, Books, Users);
-            }
-            int peopleReturnToday = (int) Math.floor(Math.random() * librarian.getNumberOfRegisteredUsers() * 0.1);
-            for (int i = 0; i < peopleReturnToday; i++) {
-                try {
-                    //                    librarian.returnBooks(dateM.getDate(), Books, Users);
-                    librarian.returnBook(date, Books, Users);
-                } catch (Exception ex) {
-                    i--;
+                int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
+                for (int i = 0; i < peopleTakeToday; i++) {
+                    librarian.createRecord(dateM.getDate(), Books, Users);
+//                librarian.createRecord(date, Books, Users);
                 }
+                int peopleReturnToday = (int) Math.floor(Math.random() * librarian.getNumberOfRegisteredUsers() * 0.1);
+                for (int i = 0; i < peopleReturnToday; i++) {
+                    try {
+                        librarian.returnBook(dateM.getDate(), Books, Users);
+//                    librarian.returnBook(date, Books, Users);
+                    } catch (Exception ex) {
+                        i--;
+                    }
+                }
+                dateM.nextDay();
+//                date = new Date((date.getTime() + (1000 * 60 * 60 * 24)));
             }
-            date = new Date((date.getTime() + (1000 * 60 * 60 * 24)));
         }
     }
+
+    
 
     private static class JournalDataManipulator {
 
