@@ -23,19 +23,21 @@ public class Librarian {
     public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
         int randomBook = (int) Math.floor(Math.random() * BookList.size());
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
-        if (!UserList.get(randomUser).isRegistered) {
-            registerUser(UserList.get(randomUser));
+        User user = UserList.get(randomUser);
+        BookWithQuantity book = BookList.get(randomBook);
+        if (!user.isRegistered) {
+            registerUser(user);
         }
-        if (BookList.get(randomBook).getQuantity() > 0) {
+        if (book.getQuantity() > 0) {
             LibrarianRecord record = new LibrarianRecord();
-            record.setBook(takeBook(randomBook, BookList));
-            record.setUser(setUser(randomUser, UserList));
+            record.setBook(takeBook(book));
+            record.setUser(user);
             record.setTakeDate(date);
             Date expireDate = new Date(date.getTime() + (1000 * 60 * 60 * 24));
             record.setExpireDate(expireDate);
-            record.pricePerDay = BookList.get(randomBook).getPricePerDay();
-            record.pricePerExtraDay = BookList.get(randomBook).getPricePerExtraDay();
-            giveBookToUser(randomUser, UserList, record);
+            record.pricePerDay = book.getPricePerDay();
+            record.pricePerExtraDay = book.getPricePerExtraDay();
+            giveBookToUser(user, record);
             allRecords.add(record);
         } else {
             System.out.println("КНИГА КОНЧИЛАСЬ");
@@ -57,10 +59,10 @@ public class Librarian {
         }
     }
 
-    private BookWithQuantity takeBook(int randomBook, ArrayList<BookWithQuantity> BookList) {
-        BookList.get(randomBook).decreaseQuantity();
-        System.out.println("Количество книг уменьшилось и стало " + BookList.get(randomBook).getQuantity());
-        return BookList.get(randomBook);
+    private BookWithQuantity takeBook(BookWithQuantity book) {
+        book.decreaseQuantity();
+        System.out.println("Количество книг уменьшилось и стало " + book.getQuantity());
+        return book;
     }
 
     private User setUser(int randomUser, ArrayList<User> UserList) {
@@ -68,8 +70,8 @@ public class Librarian {
         return UserList.get(randomUser);
     }
 
-    private void giveBookToUser(int randomUser, ArrayList<User> UserList, LibrarianRecord record) {
-        UserList.get(randomUser).records.add(record);
+    private void giveBookToUser(User user, LibrarianRecord record) {
+        user.records.add(record);
     }
 
     private void registerUser(User user) {
