@@ -22,7 +22,7 @@ public class Librarian {
     int numberOfRegisteredUsers = 0;
     public ArrayList<LibrarianRecord> allRecords = new ArrayList<>();
 
-    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
+    public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList, DateManipulator dateM) {
         int randomBook = (int) Math.floor(Math.random() * BookList.size());
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
         User user = UserList.get(randomUser);
@@ -35,7 +35,6 @@ public class Librarian {
             record.setBook(takeBook(book));
             record.setUser(user);
             record.setTakeDate(date);
-            DateManipulator dateM = new DateManipulator();
             record.setExpireDate(dateM.getNextMonth());
             giveBookToUser(user, record);
             allRecords.add(record);

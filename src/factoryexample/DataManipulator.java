@@ -79,7 +79,7 @@ public class DataManipulator {
         while (!dateM.dateIsOver()) {
                 int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
                 for (int i = 0; i < peopleTakeToday; i++) {
-                    librarian.createRecord(dateM.getDate(), Books, Users);
+                    librarian.createRecord(dateM.getDate(), Books, Users, dateM);
                 }
                 int peopleReturnToday = (int) Math.floor(Math.random() * librarian.getNumberOfRegisteredUsers() * 0.1);
                 for (int i = 0; i < peopleReturnToday; i++) {
