@@ -18,6 +18,7 @@ import users.User;
 public class Librarian {
 
     int numberOfRegisteredUsers = 0;
+    ArrayList<LibrarianRecord> allRecords = new ArrayList<>();
 
     public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
         int randomBook = (int) Math.floor(Math.random() * BookList.size());
@@ -35,6 +36,7 @@ public class Librarian {
             record.pricePerDay = BookList.get(randomBook).getPricePerDay();
             record.pricePerExtraDay = BookList.get(randomBook).getPricePerExtraDay();
             giveBookToUser(randomUser, UserList, record);
+            allRecords.add(record);
         } else {
             System.out.println("КНИГА КОНЧИЛАСЬ");
         }
@@ -47,7 +49,6 @@ public class Librarian {
         if (user.isRegistered && !user.records.isEmpty()) {
             int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
             countDebt(date, numberOfBookReturn, user);
-
             user.records.get(numberOfBookReturn).book.increaseQuantity();
             System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
             user.records.remove(numberOfBookReturn);
