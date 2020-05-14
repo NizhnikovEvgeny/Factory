@@ -33,7 +33,7 @@ public class DataManipulator {
 
     ArrayList<User> Users;
     ArrayList<BookWithQuantity> Books = new ArrayList<>();
-    ArrayList<LibrarianRecord> Records;
+    ArrayList<LibrarianRecord> Records = new ArrayList<>();
 
     public DataManipulator() {
     }
@@ -92,6 +92,7 @@ public class DataManipulator {
                 dateM.nextDay();
                 System.out.println(dateM.getDate());
         }
+        Records.addAll(librarian.allRecords);
     }
 
     

@@ -6,6 +6,7 @@
 package Records;
 
 import Books.BookWithQuantity;
+import factoryexample.DataManipulator;
 import factoryexample.DateManipulator;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ import users.User;
 public class Librarian {
 
     int numberOfRegisteredUsers = 0;
-    ArrayList<LibrarianRecord> allRecords = new ArrayList<>();
+    public ArrayList<LibrarianRecord> allRecords = new ArrayList<>();
 
     public void createRecord(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
         int randomBook = (int) Math.floor(Math.random() * BookList.size());
@@ -36,8 +37,6 @@ public class Librarian {
             record.setTakeDate(date);
             DateManipulator dateM = new DateManipulator();
             record.setExpireDate(dateM.getNextMonth());
-            record.pricePerDay = book.getPricePerDay();
-            record.pricePerExtraDay = book.getPricePerExtraDay();
             giveBookToUser(user, record);
             allRecords.add(record);
         } else {
@@ -54,6 +53,7 @@ public class Librarian {
             countDebt(date, numberOfBookReturn, user);
             user.records.get(numberOfBookReturn).book.increaseQuantity();
             System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
+            user.records.get(numberOfBookReturn).setReturnDate(date);
             user.records.remove(numberOfBookReturn);
         } else {
             throw new Exception();
@@ -90,7 +90,7 @@ public class Librarian {
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
         if ((date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime()) < 0) { //Это если сдал вовремя
-            double debt = diff * user.records.get(numberOfBookReturn).pricePerDay;
+            double debt = diff * user.records.get(numberOfBookReturn).book.getPricePerDay();
             user.addToDebt(debt);
             System.out.println(debt);
         } else {            //Если сдал позже срока
@@ -99,7 +99,7 @@ public class Librarian {
 
             long extraDiffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime());
             long extraDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            double debt = normalDiff * user.records.get(numberOfBookReturn).pricePerDay + extraDiff * user.records.get(numberOfBookReturn).pricePerExtraDay;
+            double debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay()+ extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
             user.addToDebt(debt);
             System.out.println(debt);
         }

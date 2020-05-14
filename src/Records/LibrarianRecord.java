@@ -19,8 +19,6 @@ public class LibrarianRecord {
     Date takeDate;
     Date expireDate;
     Date returnDate;
-    double pricePerDay;
-    double pricePerExtraDay;
     
     public LibrarianRecord(){
         
@@ -40,6 +38,10 @@ public class LibrarianRecord {
 
     public void setExpireDate(Date expireDate) {
         this.expireDate = expireDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
     
 }
