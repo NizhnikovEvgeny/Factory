@@ -35,8 +35,7 @@ public class Librarian {
             record.setUser(user);
             record.setTakeDate(date);
             DateManipulator dateM = new DateManipulator();
-//            Date expireDate = new Date(date.getTime() + (1000 * 60 * 60 * 24));
-            record.setExpireDate(expireDate);
+            record.setExpireDate(dateM.getNextMonth());
             record.pricePerDay = book.getPricePerDay();
             record.pricePerExtraDay = book.getPricePerExtraDay();
             giveBookToUser(user, record);
