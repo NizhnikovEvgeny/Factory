@@ -21,16 +21,18 @@ public class DateManipulator {
         calendar.add(Calendar.DAY_OF_MONTH, 1);
     }
     
-    public Calendar getNextMonth() {
-        Calendar calendar1 = new GregorianCalendar();
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-        calendar1 = calendar;
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        return calendar1;
+    public Date getNextMonth() {
+        Calendar newcalendar = new GregorianCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        newcalendar.add(Calendar.MONTH, 1);
+        return newcalendar.getTime();
     }
     
     public Date getDate() {
         return calendar.getTime();
+    }
+    
+    public Date todayDate() {
+        return today.getTime();
     }
     
     public boolean DateIsOver() {
