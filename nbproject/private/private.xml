@@ -4,10 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/User/Documents/GitHub/Factory/src/Records/Librarian.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Factory/src/users/User.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Factory/src/factoryexample/FactoryExample.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Factory/src/factoryexample/DataManipulator.java</file>
-            <file>file:/C:/Users/User/Documents/GitHub/Factory/src/Books/BookWithQuantity.java</file>
+            <file>file:/C:/Users/User/Documents/GitHub/Factory/src/factoryexample/DateManipulator.java</file>
             <file>file:/C:/Users/User/Documents/GitHub/Factory/src/Records/LibrarianRecord.java</file>
         </group>
     </open-files>
