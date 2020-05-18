@@ -21,6 +21,7 @@ public class AstronomicalJournalBuilder extends JournalBuilder{
     @Override
     public void createJName() {
         this.journal.setJName("Сквозь тернии к звездам");
+        this.journal.setType("AstronomicalJournal");
     }
 
     @Override

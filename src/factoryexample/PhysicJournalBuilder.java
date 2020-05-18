@@ -21,6 +21,7 @@ public class PhysicJournalBuilder extends JournalBuilder{
     @Override
     public void createJName() {
         this.journal.setJName("Юные физики и инженеры");
+        this.journal.setType("PhysicJournal");
     }
 
     

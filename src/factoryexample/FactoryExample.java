@@ -6,6 +6,7 @@
 package factoryexample;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  *
@@ -17,13 +18,14 @@ public class FactoryExample {
      * @param args the command line arguments
      * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 //        Frame frame = new Frame();
 //        frame.setVisible(true);
         DataManipulator DM = new DataManipulator();
         DM.initialize();
         DM.generateData();
         DM.generateRecords();
+        DM.exportToDB();
     }
     
 }

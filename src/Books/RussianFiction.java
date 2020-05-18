@@ -67,4 +67,14 @@ public class RussianFiction implements Fiction{
         placeList.add("лесам");
         placeList.add("островам");
     }
+
+    @Override
+    public String getType() {
+        return "RussianFiction";
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

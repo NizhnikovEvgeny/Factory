@@ -21,11 +21,11 @@ public abstract class User {
     public int ID;
     public String Name;
     public String Surname;
-    public String Patronymic;
+    public String Patronymic ="";
     public boolean isRegistered = false;
     public double debt = 0;
     
-    public static int GLOBAL_ID = 0;
+    public static int GLOBAL_ID = 1;
     
     public static ArrayList<String> NameList;
     public static ArrayList<String> SurnameList;
@@ -62,6 +62,10 @@ public abstract class User {
 
     public String getPatronymic() {
         return Patronymic;
+    }
+
+    public double getDebt() {
+        return debt;
     }
     
     

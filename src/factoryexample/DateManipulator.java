@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  * @author bys99
  */
 public class DateManipulator {
-    Calendar calendar = new GregorianCalendar(2010, Calendar.APRIL, 1);
+    Calendar calendar = new GregorianCalendar(2020, Calendar.APRIL, 1);
     Calendar today = new GregorianCalendar();
     
     public void nextDay() {

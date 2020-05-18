@@ -10,16 +10,19 @@ package Books;
  * @author Женя
  */
 public class BookWithQuantity {
-    Bookable book;
+    public Bookable book;
     int quantity;
     private double pricePerDay;
     private double pricePerExtraDay;
+    int id;
+    static int id_all;
     
     public BookWithQuantity(Bookable book){
         this.book=book;
         this.quantity = (int) Math.floor(Math.random()*5+1);
-        this.pricePerDay = Math.random()*300+1;
-        this.pricePerExtraDay = this.pricePerDay+100;
+        this.pricePerDay = Math.random()*10+1;
+        this.pricePerExtraDay = this.pricePerDay*2;
+        id=id_all++;
     }
     
     public void increaseQuantity(){
@@ -39,6 +42,14 @@ public class BookWithQuantity {
 
     public double getPricePerExtraDay() {
         return pricePerExtraDay;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Bookable getBook() {
+        return book;
     }
     
 }

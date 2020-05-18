@@ -42,8 +42,9 @@ public class EnglishFiction implements Fiction{
         return auhtor;
     }
 
+    @Override
     public String getName() {
-        return name;
+        return this.auhtor + " has written \"" + this.name + "\" in " + this.year;
     }
 
     public ArrayList<String> getAuthorList() {
@@ -73,9 +74,9 @@ public class EnglishFiction implements Fiction{
         nameList = new ArrayList<>();
         nameList.add("In Search of Lost Time");
         nameList.add("Don Quixote");
-        nameList.add("Pilgrim's Progress");
+        nameList.add("Pilgrim''s Progress");
         nameList.add("Robinson Crusoe");
-        nameList.add("Gulliver's Travels");
+        nameList.add("Gulliver''s Travels");
         nameList.add("Tom Jones");
         nameList.add("Clarissa");
         nameList.add("Dangerous Liaisons");
@@ -89,5 +90,10 @@ public class EnglishFiction implements Fiction{
     }
     private int generateYear(){
         return (int) Math.floor(Math.random()*2000+1);
+    }
+
+    @Override
+    public String getType() {
+        return "EnglishFiction";
     }
 }

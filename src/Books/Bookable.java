@@ -10,5 +10,6 @@ package Books;
  * @author Dmitry
  */
 public interface Bookable {
-    
+    String getType();
+    String getName();
 }

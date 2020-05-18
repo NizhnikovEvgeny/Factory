@@ -58,4 +58,14 @@ public class RussianTextbook implements Textbook{
     private String generateType(){
         return typeList.get((int) Math.floor(Math.random()*typeList.size()));
     }
+
+    @Override
+    public String getType() {
+        return "RussianTextbook";
+    }
+
+    @Override
+    public String getName() {
+        return this.type + " по предмету " + this.subject;
+    }
 }

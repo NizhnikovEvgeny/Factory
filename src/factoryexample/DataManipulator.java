@@ -13,6 +13,7 @@ import Books.RussianBookFactory;
 import Books.RussianFiction;
 import Books.RussianTextbook;
 import Books.EnglishFiction;
+import DB.DBManipulator;
 import Records.Librarian;
 import Records.LibrarianRecord;
 import users.Teacher;
@@ -20,6 +21,7 @@ import users.Student;
 import users.User;
 import users.UserFactory;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -94,7 +96,11 @@ public class DataManipulator {
         }
         Records = librarian.allRecords;
     }
-
+    
+    public void exportToDB() throws SQLException{
+        DBManipulator db = new DBManipulator();
+        db.work(Users, Books, Records);
+    }
     
 
     private static class JournalDataManipulator {

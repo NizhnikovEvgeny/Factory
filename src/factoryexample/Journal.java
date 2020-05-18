@@ -13,9 +13,14 @@ import Books.Bookable;
  */
 public class Journal implements Bookable{
     public String JName;
+    public String type;
+
+    public void setType(String type) {
+        this.type = type;
+    }
     public int volume;
     public int year;
-
+    
     public String getJName() {
         return JName;
     }
@@ -39,6 +44,22 @@ public class Journal implements Bookable{
     public void setYear(int year) {
         this.year = year;
     }
+
+    
+
+    @Override
+    public String getName() {
+        return JName;
+    }
+
+    @Override
+    public String getType() {
+        return type;
+    }
+
+    
+
+    
     
     
     

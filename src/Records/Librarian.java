@@ -100,6 +100,7 @@ public class Librarian {
             long extraDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
             double debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay()+ extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
             user.addToDebt(debt);
+            user.records.get(numberOfBookReturn).setDebt(debt);
             System.out.println(debt);
         }
     }

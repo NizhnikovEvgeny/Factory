@@ -14,14 +14,17 @@ import users.User;
  * @author Dmitry
  */
 public class LibrarianRecord {
+    static int id_all = 1;
     User user;
     BookWithQuantity book;
     Date takeDate;
     Date expireDate;
     Date returnDate;
+    int id;
+    double debt;
     
     public LibrarianRecord(){
-        
+        id = id_all++;
     }
 
     public void setUser(User user) {
@@ -42,6 +45,38 @@ public class LibrarianRecord {
 
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public void setDebt(double debt) {
+        this.debt = debt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public BookWithQuantity getBook() {
+        return book;
+    }
+
+    public Date getTakeDate() {
+        return takeDate;
+    }
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getDebt() {
+        return debt;
     }
     
 }
