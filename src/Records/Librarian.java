@@ -9,7 +9,9 @@ import Books.BookWithQuantity;
 import factoryexample.DataManipulator;
 import factoryexample.DateManipulator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import users.User;
 
@@ -44,18 +46,18 @@ public class Librarian {
 
     }
 
-    public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) throws Exception {
+    public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList){
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
         User user = UserList.get(randomUser);
-        if (user.isRegistered && !user.records.isEmpty()) {
-            int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
-            countDebt(date, numberOfBookReturn, user);
-            user.records.get(numberOfBookReturn).book.increaseQuantity();
-            System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
-            user.records.get(numberOfBookReturn).setReturnDate(date);
-            user.records.remove(numberOfBookReturn);
-        } else {
-            throw new Exception();
+        System.err.println(user.records.size());
+        int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
+        countDebt(date, numberOfBookReturn, user);
+        user.records.get(numberOfBookReturn).book.increaseQuantity();
+        System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
+        user.records.get(numberOfBookReturn).setReturnDate(date);
+        user.records.remove(numberOfBookReturn);
+        if (!user.hasBooks()){
+        UserList.remove(randomUser);
         }
     }
 
@@ -98,7 +100,7 @@ public class Librarian {
 
             long extraDiffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime());
             long extraDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            double debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay()+ extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
+            double debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay() + extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
             user.addToDebt(debt);
             user.records.get(numberOfBookReturn).setDebt(debt);
             System.out.println(debt);

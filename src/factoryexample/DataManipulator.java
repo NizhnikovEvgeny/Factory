@@ -23,9 +23,12 @@ import users.UserFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -79,29 +82,29 @@ public class DataManipulator {
         Librarian librarian = new Librarian();
         DateManipulator dateM = new DateManipulator();
         while (!dateM.dateIsOver()) {
-                int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
-                for (int i = 0; i < peopleTakeToday; i++) {
-                    librarian.createRecord(dateM.getDate(), Books, Users, dateM);
-                }
-                int peopleReturnToday = (int) Math.floor(Math.random() * librarian.getNumberOfRegisteredUsers() * 0.1);
-                for (int i = 0; i < peopleReturnToday; i++) {
-                    try {
-                        librarian.returnBook(dateM.getDate(), Books, Users);
-                    } catch (Exception ex) {
-                        i--;
-                    }
-                }
-                dateM.nextDay();
-                System.out.println(dateM.getDate());
+            int peopleTakeToday = (int) Math.floor(Math.random() * Users.size() * 0.10 + 1);
+            for (int i = 0; i < peopleTakeToday; i++) {
+                librarian.createRecord(dateM.getDate(), Books, Users, dateM);
+            }
+            
+            ArrayList<User> localUserList = new ArrayList<>();
+            Users.stream().filter(u -> u.hasBooks()).forEach(u -> {
+                localUserList.add(u);
+            });
+            int peopleReturnToday = (int) Math.floor(Math.random() * localUserList.size() * 0.1);
+            for (int i = 0; i < peopleReturnToday; i++) {
+                    librarian.returnBook(dateM.getDate(), Books, localUserList);
+            }
+            dateM.nextDay();
+            System.out.println(dateM.getDate());
         }
         Records = librarian.allRecords;
     }
-    
-    public void exportToDB() throws SQLException{
+
+    public void exportToDB() throws SQLException {
         DBManipulator db = new DBManipulator();
         db.work(Users, Books, Records);
     }
-    
 
     private static class JournalDataManipulator {
 

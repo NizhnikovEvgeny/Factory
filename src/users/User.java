@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public abstract class User {
     
-    public ArrayList<LibrarianRecord> records;
+    public ArrayList<LibrarianRecord> records = new ArrayList<>();
     public int ID;
     public String Name;
     public String Surname;
@@ -105,6 +105,9 @@ public abstract class User {
     }
     public void addToDebt (double debt){
         this.debt+=debt;
+    }
+    public boolean hasBooks(){
+        return !records.isEmpty();
     }
 }
 
