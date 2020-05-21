@@ -86,14 +86,10 @@ public class DataManipulator {
             for (int i = 0; i < peopleTakeToday; i++) {
                 librarian.createRecord(dateM.getDate(), Books, Users, dateM);
             }
-            
-            ArrayList<User> localUserList = new ArrayList<>();
-            Users.stream().filter(u -> u.hasBooks()).forEach(u -> {
-                localUserList.add(u);
-            });
+            ArrayList<User> localUserList = Users.stream().filter(u -> u.hasBooks()).collect(Collectors.toCollection(ArrayList::new));
             int peopleReturnToday = (int) Math.floor(Math.random() * localUserList.size() * 0.1);
             for (int i = 0; i < peopleReturnToday; i++) {
-                    librarian.returnBook(dateM.getDate(), Books, localUserList);
+                librarian.returnBook(dateM.getDate(), Books, localUserList);
             }
             dateM.nextDay();
             System.out.println(dateM.getDate());

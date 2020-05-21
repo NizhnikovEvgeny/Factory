@@ -25,7 +25,7 @@ public class FactoryExample {
         DM.initialize();
         DM.generateData();
         DM.generateRecords();
-//        DM.exportToDB();
+        DM.exportToDB();
     }
     
 }
