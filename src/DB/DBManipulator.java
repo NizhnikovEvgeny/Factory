@@ -95,5 +95,4 @@ public class DBManipulator {
         }
         con.close();
     }
-
 }
