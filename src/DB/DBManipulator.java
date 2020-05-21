@@ -47,9 +47,6 @@ public class DBManipulator {
         boolean notDone = true;
         while (notDone) {
             try {
-                statement.execute("DROP TABLE factory.record");
-                statement.execute("DROP TABLE factory.user");
-                statement.execute("DROP TABLE factory.book");
                 statement.execute("CREATE TABLE factory.user("
                         + "id INT PRIMARY KEY,"
                         + "name VARCHAR(50),"
