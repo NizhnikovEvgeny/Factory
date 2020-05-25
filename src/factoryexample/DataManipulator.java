@@ -93,6 +93,7 @@ public class DataManipulator {
             }
             dateM.nextDay();
             System.out.println(dateM.getDate());
+            Frame.text+= dateM.getDate() + "\n";
         }
         Records = librarian.allRecords;
     }

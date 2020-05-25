@@ -7,6 +7,7 @@ package DB;
 
 import Books.BookWithQuantity;
 import Records.LibrarianRecord;
+import factoryexample.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -65,6 +66,7 @@ public class DBManipulator {
                         + "debt DECIMAL(8,2),"
                         + "FOREIGN KEY (book_id) REFERENCES factory.book (id),"
                         + "FOREIGN KEY (user_id) REFERENCES factory.user (id));");
+//                Frame.text += "Таблицы созданы\n";
                 notDone = false;
             } catch (SQLException e) {
                 statement.execute("DROP TABLE factory.record");

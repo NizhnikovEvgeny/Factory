@@ -8,6 +8,7 @@ package Records;
 import Books.BookWithQuantity;
 import factoryexample.DataManipulator;
 import factoryexample.DateManipulator;
+import factoryexample.Frame;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -41,6 +42,7 @@ public class Librarian {
             giveBookToUser(user, record);
             allRecords.add(record);
         } else {
+            Frame.text+= "КНИГА КОНЧИЛАСЬ\n";
             System.out.println("КНИГА КОНЧИЛАСЬ");
         }
 
@@ -49,7 +51,6 @@ public class Librarian {
     public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList){
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
         User user = UserList.get(randomUser);
-        System.err.println(user.records.size());
         int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
         countDebt(date, numberOfBookReturn, user);
         user.records.get(numberOfBookReturn).book.increaseQuantity();
@@ -64,6 +65,7 @@ public class Librarian {
     private BookWithQuantity takeBook(BookWithQuantity book) {
         book.decreaseQuantity();
         System.out.println("Количество книг уменьшилось и стало " + book.getQuantity());
+        Frame.text+= "Количество книг уменьшилось и стало " + book.getQuantity() + "\n";
         return book;
     }
 
@@ -104,6 +106,7 @@ public class Librarian {
             user.addToDebt(debt);
             user.records.get(numberOfBookReturn).setDebt(debt);
             System.out.println(debt);
+            Frame.text+= debt + "\n";
         }
     }
 }

@@ -6,6 +6,7 @@
 package factoryexample;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,16 +99,21 @@ public class Frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 public static String text = "";
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DataManipulator DM = new DataManipulator();
         try {
+            DataManipulator DM = new DataManipulator();
             DM.initialize();
+            DM.generateData();
+            DM.generateRecords();
+//            DM.exportToDB();
+            text += "Таблицы созданы\n";
+            text += "ГЕНЕРАЦИЯ ЗАВЕРШЕНА";
+            jTextArea1.setText(text);
+            jLabel1.setText("ГЕНЕРАЦИЯ ЗАВЕРШЕНА");
         } catch (IOException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DM.generateData();
-        text+="ГЕНЕРАЦИЯ ЗАВЕРШЕНА";
-        jTextArea1.setText(text);
-        jLabel1.setText("ГЕНЕРАЦИЯ ЗАВЕРШЕНА");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
