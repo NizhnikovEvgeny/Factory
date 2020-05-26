@@ -49,7 +49,7 @@ public class Journal implements Bookable{
 
     @Override
     public String getName() {
-        return JName;
+        return JName + " от " + year + " под номером " + volume;
     }
 
     @Override

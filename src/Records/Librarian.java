@@ -42,13 +42,13 @@ public class Librarian {
             giveBookToUser(user, record);
             allRecords.add(record);
         } else {
-            Frame.text+= "КНИГА КОНЧИЛАСЬ\n";
+            Frame.text += "КНИГА КОНЧИЛАСЬ\n";
             System.out.println("КНИГА КОНЧИЛАСЬ");
         }
 
     }
 
-    public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList){
+    public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
         int randomUser = (int) Math.floor(Math.random() * UserList.size());
         User user = UserList.get(randomUser);
         int numberOfBookReturn = (int) Math.floor(Math.random() * user.records.size());
@@ -57,15 +57,15 @@ public class Librarian {
         System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
         user.records.get(numberOfBookReturn).setReturnDate(date);
         user.records.remove(numberOfBookReturn);
-        if (!user.hasBooks()){
-        UserList.remove(randomUser);
+        if (!user.hasBooks()) {
+            UserList.remove(randomUser);
         }
     }
 
     private BookWithQuantity takeBook(BookWithQuantity book) {
         book.decreaseQuantity();
         System.out.println("Количество книг уменьшилось и стало " + book.getQuantity());
-        Frame.text+= "Количество книг уменьшилось и стало " + book.getQuantity() + "\n";
+        Frame.text += "Количество книг уменьшилось и стало " + book.getQuantity() + "\n";
         return book;
     }
 
@@ -92,21 +92,20 @@ public class Librarian {
         long diffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).takeDate.getTime());
         long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
-        if ((date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime()) < 0) { //Это если сдал вовремя
-            double debt = diff * user.records.get(numberOfBookReturn).book.getPricePerDay();
-            user.addToDebt(debt);
-            System.out.println(debt);
-        } else {            //Если сдал позже срока
+        //Это если сдал вовремя
+        double debt = diff * user.records.get(numberOfBookReturn).book.getPricePerDay();
+
+        if (date.getTime() > user.records.get(numberOfBookReturn).expireDate.getTime()) {      //Если сдал позже срока
             long normalDiffInMillies = Math.abs(user.records.get(numberOfBookReturn).expireDate.getTime() - user.records.get(numberOfBookReturn).takeDate.getTime());
             long normalDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
             long extraDiffInMillies = Math.abs(date.getTime() - user.records.get(numberOfBookReturn).expireDate.getTime());
             long extraDiff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            double debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay() + extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
-            user.addToDebt(debt);
-            user.records.get(numberOfBookReturn).setDebt(debt);
-            System.out.println(debt);
-            Frame.text+= debt + "\n";
+            debt = normalDiff * user.records.get(numberOfBookReturn).book.getPricePerDay() + extraDiff * user.records.get(numberOfBookReturn).book.getPricePerExtraDay();
         }
+        user.addToDebt(debt);
+        user.records.get(numberOfBookReturn).setDebt(debt);
+        System.out.println(debt);
+        Frame.text += debt + "\n";
     }
 }
