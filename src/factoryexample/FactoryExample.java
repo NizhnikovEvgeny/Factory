@@ -21,6 +21,7 @@ public class FactoryExample {
     public static void main(String[] args) throws IOException, SQLException {
         Frame frame = new Frame();
         frame.setVisible(true);
+        frame.setSize(1150, 550);
 //        DataManipulator DM = new DataManipulator();
 //        DM.initialize();
 //        DM.generateData();

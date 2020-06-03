@@ -55,6 +55,7 @@ public class Librarian {
         countDebt(date, numberOfBookReturn, user);
         user.records.get(numberOfBookReturn).book.increaseQuantity();
         System.out.println("Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity());
+        Frame.text += "Количество книг увеличилось и стало " + user.records.get(numberOfBookReturn).book.getQuantity() + "\n";
         user.records.get(numberOfBookReturn).setReturnDate(date);
         user.records.remove(numberOfBookReturn);
         if (!user.hasBooks()) {
