@@ -45,7 +45,6 @@ public class Librarian {
             Frame.text += "КНИГА КОНЧИЛАСЬ\n";
             System.out.println("КНИГА КОНЧИЛАСЬ");
         }
-
     }
 
     public void returnBook(Date date, ArrayList<BookWithQuantity> BookList, ArrayList<User> UserList) {
